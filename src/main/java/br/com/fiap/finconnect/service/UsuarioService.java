@@ -37,12 +37,17 @@ public class UsuarioService {
   }
 
   public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
-    Optional<Usuario> usuarioAtual = usuarioRepository.findById(id);
-    if (usuarioAtual.isPresent()) {
-      return usuarioRepository.save(usuarioAtualizado);
-    } else {
-      throw new RuntimeException("Usuário não encontrado!.");
-    }
+    Usuario usuarioAtual = usuarioRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+    usuarioAtual.setNome(usuarioAtualizado.getNome());
+    usuarioAtual.setEmail(usuarioAtualizado.getEmail());
+    usuarioAtual.setSenha(usuarioAtualizado.getSenha());
+    usuarioAtual.setCpf(usuarioAtualizado.getCpf());
+    usuarioAtual.setTelefone(usuarioAtualizado.getTelefone());
+    usuarioAtual.setDataNascimento(usuarioAtualizado.getDataNascimento());
+    usuarioAtual.setRenda(usuarioAtualizado.getRenda());
+    usuarioAtual.setObjetivos(usuarioAtualizado.getObjetivos());
+    return usuarioRepository.save(usuarioAtual);
   }
 
 }

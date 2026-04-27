@@ -1,14 +1,32 @@
 package br.com.fiap.finconnect.model;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "TB_TRANSACAO")
 public class Transacao {
+
+  @Id
+  @GeneratedValue(
+    strategy = GenerationType.SEQUENCE,
+    generator = "SEQ_TRANSACAO"
+  )
+  @SequenceGenerator(
+    name = "SEQ_TRANSACAO",
+    sequenceName = "SEQ_TRANSACAO",
+    allocationSize = 1
+  )
   private Long id;
+
+  @Column(name = "USUARIO_ID", nullable = false)
   private Long usuarioId;
   private LocalDate data;
   private BigDecimal valor;
   private CategoriaTransacao categoria;
+
   private String descricao;
 
   public Transacao(Long id, Long usuarioId, LocalDate data, BigDecimal valor, CategoriaTransacao categoria, String descricao) {
