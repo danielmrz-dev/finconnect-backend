@@ -23,7 +23,7 @@ public class TransacaoService {
 
   public List<Transacao> listaTransacoes() {
     List<Transacao> foundList = transacaoRepository.findAll();
-    foundList.sort(Comparator.comparing(Transacao::getData));
+    foundList.sort(Comparator.comparing(Transacao::getData).reversed());
     return foundList;
   }
 
